@@ -52,27 +52,30 @@ RSpec.describe PageView, type: :model do
       xit { expect(described_class.all).to have(0).items }
 
     end
+  end
 
+  describe '.errors' do
 
-    describe '.errors' do
+    context 'when invalid input' do
 
-      context 'when invalid input' do
-
-        let(:invalid_input) do
-          { url: 'http://apple.com', referrer: 'abc.foo' }
-        end
-
-        before do
-          @instance = described_class.new(invalid_input)
-          @instance.valid?
-        end
-
-        it 'should have error messages' do
-          expect(@instance.errors).to eq({:referrer=>["is not a valid URL"]})
-        end
-
-
+      let(:invalid_input) do
+        { url: 'abc.com', referrer: 'abc.foo' }
       end
+
+      before do
+        @instance = described_class.new(invalid_input)
+        @instance.valid?
+      end
+
+      it 'should have error messages' do
+        expect(@instance.errors).to eq({:url=>["is not a valid URL"]})
+      end
+    end
+  end
+
+  describe '.after_create' do
+
+    xit 'should update the hash with MD5' do 
     end
   end
 end
