@@ -1,5 +1,12 @@
 #Making a database connection
 
-DB = Sequel.connect(adapter: 'postgres', host: 'localhost', database: 'ankit')
+if Rails.env.test?
+  database = 'ankit_test'
+else
+  database = 'ankit'
+end
 
-Sequel.extension :migration, :core_extensions
+puts "Using database: #{database}"
+DB = Sequel.connect(adapter: 'postgres', host: 'localhost', database: database)
+
+Sequel.extension :migration
