@@ -5,7 +5,7 @@ namespace :db do
     puts "Creating Database..."
   end
 
-  desc "Run migrations"
+  desc "Create and run migrations"
   task :migrate, [:version] => [:environment]  do |t, args|
     if args[:version]
       puts "Migrating to version #{args[:version]}"
@@ -15,4 +15,10 @@ namespace :db do
       Sequel::Migrator.run(DB, "#{Rails.root}/db/migrations")
     end
   end
+
+  desc "Seed database with dummy data"
+  task seed: :environment do
+    system('bin/rails runner "Seeder.new(1_000_000, 10).seed"')
+  end
+
 end

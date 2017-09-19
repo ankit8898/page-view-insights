@@ -4,7 +4,7 @@ Sequel.migration do
       primary_key :id
       String :url, null: false
       String :referrer
-      DateTime :created_at, default: Sequel::CURRENT_TIMESTAMP
+      DateTime :created_at, default: Sequel::CURRENT_TIMESTAMP, index: true
       String :hash
     end
   end
