@@ -19,20 +19,21 @@ RSpec.describe PageViewsController, type: :controller do
       end
 
       it "return a JSON response with key as date looked up" do
-        expect(json_body.keys).to contain_exactly(date)
+        expect(json_body.collect(&:keys).flatten).to contain_exactly(date)
       end
 
       it "returns a single item" do
-        expect(json_body[date]).to have(1).items
+        expect(json_body).to have(1).items
       end
 
       it "returns a top url visited to date" do
-        expect(Seeder::URLS).to include(json_body[date][0]['url'])
+        expect(Seeder::URLS).to include(json_body[0][date][0]['url'])
       end
 
-      it "return a JSON response with key as date looked up" do
-        expect(json_body.keys).to contain_exactly(date)
+      it "returns a top url visits" do
+        expect(json_body[0][date][0]['visits']).to be > 0
       end
+
     end
   end
 

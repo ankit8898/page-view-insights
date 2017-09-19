@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Queries, type: :concern do
 
-  class PageView < Sequel::Model
+  class DummyPageView < PageView
     extend Queries
   end
 
@@ -59,13 +59,13 @@ RSpec.describe Queries, type: :concern do
 
     describe '#top_urls_on_date_query' do
 
-      it { expect(PageView.top_urls_on_date_query('2017-09-17').sql.gsub(/\"/,"'")).to eq(
+      it { expect(DummyPageView.top_urls_on_date_query('2017-09-17').sql.gsub(/\"/,"'")).to eq(
         "SELECT 'url', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE =  '2017-09-17') GROUP BY 'date_visited', 'url' ORDER BY 'visits' DESC LIMIT 1"
         ) }
     end
 
     describe '#top_urls_between_date_query' do
-      it { expect(PageView.top_urls_between_date_query('2017-09-15','2017-09-16').sql.gsub(/\"/,"'")).to eq(
+      it { expect(DummyPageView.top_urls_between_date_query('2017-09-15','2017-09-16').sql.gsub(/\"/,"'")).to eq(
         "SELECT 'url', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE BETWEEN '2017-09-15' AND '2017-09-16') GROUP BY 'date_visited', 'url'"
         ) }
     end

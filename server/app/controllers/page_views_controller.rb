@@ -11,7 +11,6 @@ class PageViewsController < ApplicationController
     else
       render json: { message: invalid_params_message }
     end
-
   end
 
 

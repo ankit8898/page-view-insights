@@ -1,6 +1,5 @@
 module Queries
 
-
   extend ActiveSupport::Concern
 
   included do
