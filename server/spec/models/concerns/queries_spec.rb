@@ -66,7 +66,7 @@ RSpec.describe Queries, type: :concern do
 
     describe '#top_urls_between_date_query' do
       it { expect(DummyPageView.top_urls_between_date_query('2017-09-15','2017-09-16').sql.gsub(/\"/,"'")).to eq(
-        "SELECT 'url', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE BETWEEN '2017-09-15' AND '2017-09-16') GROUP BY 'date_visited', 'url'"
+        "SELECT 'url', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE BETWEEN '2017-09-15' AND '2017-09-16') GROUP BY 'date_visited', 'url' ORDER BY 'visits' DESC"
         ) }
     end
   end

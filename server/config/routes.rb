@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
     collection do
       get :top_urls
+      get :dates
+      get :dates_range
     end
   end
 

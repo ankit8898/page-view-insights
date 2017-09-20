@@ -11,7 +11,16 @@ class Seeder
     'https://www.apple.com',
     'http://developer.apple.com',
     'http://en.wikipedia.org',
-    'http://opensource.org'
+    'http://opensource.org',
+    'http://www.realtor.com',
+    'http://www.google.com',
+    'http://www.facebook.com',
+    'http://developer.facebook.com',
+    'http://api.facebook.com',
+    'http://twitter.com',
+    'http://nytimes.com',
+    'http://ruby.com',
+    'http://gmail.com'
   ]
 
   # Url's which are Referrer to url's visited
@@ -21,6 +30,14 @@ class Seeder
     'https://apple.com',
     'https://www.apple.com',
     'http://developer.apple.com',
+    'http://developer.console.com',
+    'http://playstation.com',
+    'https://www.realtor.com/homemade',
+    'https://www.realtor.com/realestateandhomes-search/Austin_TX',
+    'https://abcnews.com',
+    'https://www.os.org',
+    'http://api.facebook.com/users',
+    'http://object.net',
     nil #nil to simulate a no referrer
   ]
 

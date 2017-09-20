@@ -13,6 +13,16 @@ class PageViewsController < ApplicationController
     end
   end
 
+  # GET /dates
+  def dates
+    render json: PageView.dates,
+    each_serializer: PageView::DatesSerializer
+  end
+
+  def dates_range
+    render json: PageView.dates_ranges,
+    each_serializer: PageView::DatesRangeSerializer
+  end
 
   private
 
