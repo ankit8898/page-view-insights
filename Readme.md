@@ -145,3 +145,117 @@ Server Application is a Rails API based application. It is sliced down further b
 ### Testing
 
 ##### Server (Rails App)
+
+
+```
+$ cd server
+$ bundle exec rspec .
+```
+
+```ruby
+
+FakeController
+  .validate
+    when valid date only params
+      should equal true
+    when invalid date only params
+      should equal false
+      should equal false
+    when valid start and end
+      should equal true
+      should equal true
+    when invalid start and end
+      should equal false
+    when invalid combination of params
+      should equal false
+      should equal false
+      should equal false
+
+PageViewsController
+  GET #top_urls
+    when looking for a date
+      returns http success
+      return a JSON response with key as date looked up
+      returns a single item
+      returns a top url visited to date
+      returns a top url visits
+    when looking for a invalid date
+      returns error message
+  GET #top_referrers
+    when looking for a date
+      returns http success
+      return a JSON response with key as date looked up
+      returns a collection of urls
+    when looking for a invalid date
+      returns error message
+
+Queries
+  Scopes
+    CREATED_AT_SCOPE
+      should be a type proc
+      should be of type Sequel::LiteralString
+      should return the string of where clause
+    CREATED_AT_RANGE_SCOPE
+      should be a type proc
+      should be of type Sequel::LiteralString
+      should return the string of where clause
+    SELECTED_COLUMNS_SCOPE
+      should eq :url_id
+      should eq "date_trunc('day', created_at)::DATE"
+      should eq :date_visited
+      should eq "count(*)"
+      should eq :visits
+    #top_urls_on_date_query
+      should eq "SELECT 'url_id', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'p...('day', created_at)::DATE =  '2017-09-17') GROUP BY 'date_visited', 'url_id' ORDER BY 'visits' DESC"
+    #top_urls_between_date_query
+      should eq "SELECT 'url_id', date_trunc('day', created_at)::DATE AS 'date_visited', count(*) AS 'visits' FROM 'p...ATE BETWEEN '2017-09-15' AND '2017-09-16') GROUP BY 'date_visited', 'url_id' ORDER BY 'visits' DESC"
+    #top_ten_url_ids_on_date_query
+      should eq "SELECT 'url_id' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE =  '2017-09-27') GROUP BY 'url_id' ORDER BY count(*) DESC LIMIT 10"
+    #top_ten_url_ids_between_date_query
+      should eq "SELECT 'url_id' FROM 'page_views' WHERE (date_trunc('day', created_at)::DATE BETWEEN '2017-09-24' AND '2017-09-26') GROUP BY 'url_id' ORDER BY count(*) DESC LIMIT 10"
+    #top_referrers_on_date_query
+      should eq "SELECT 'url_id', 'referrer_url_id', count(*) AS 'visits', date_trunc('day', created_at)::DATE AS 'da...:DATE =  '2017-09-24')) GROUP BY 'url_id', 'referrer_url_id', 'date_visited' ORDER BY 'visits' DESC"
+    #top_referrers_between_date_query
+      should eq "SELECT 'url_id', 'referrer_url_id', count(*) AS 'visits', date_trunc('day', created_at)::DATE AS 'da...-24' AND '2017-09-25')) GROUP BY 'url_id', 'referrer_url_id', 'date_visited' ORDER BY 'visits' DESC"
+
+PageView
+  #validate
+    when valid input
+      should have 1 items
+      should eq "http://apple.com"
+      should eq "www.google.com"
+  .after_create
+    should update the hash with MD5 (PENDING: Temporarily skipped with xit)
+  #top_urls
+    Date lookup
+      when valid date
+        should have 1 items
+      when invalid date
+        should have 0 items
+    Between start and end
+      when valid_date range
+        should have 6 items
+
+ReferrerUrl
+  .errors
+    when valid input
+      should have no error messages
+
+Url
+  .errors
+    when invalid input
+      should have error messages
+    when valid input
+      should have no error messages
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) PageView.after_create should update the hash with MD5
+     # Temporarily skipped with xit
+     # ./spec/models/page_view_spec.rb:27
+
+
+Finished in 0.30484 seconds (files took 0.88869 seconds to load)
+46 examples, 0 failures, 1 pending
+
+```
