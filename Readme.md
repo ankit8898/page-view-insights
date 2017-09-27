@@ -123,7 +123,7 @@ Client Application is a light weight react js application which has
 
 * **Services** (`src/services`): Services are functions to make REST API calls. It uses <a href='https://github.com/mzabriskie/axios'>axios</a> for making calls.
 * **Components** (`src/components`): Standard React components to fetch top urls and referrers. Components also import some of the pre baked react-bootstrap components.
-* **config** (`config.js`): Maintains the state of base url for API calls. Base Url's are set in respective `webpack` configs.
+* **config** (`config.js`): Maintains the state of base url for API calls. Base Url's are set in respective `webpack` configs .
 
 ##### Server (Rails App)
 
