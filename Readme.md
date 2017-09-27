@@ -2,6 +2,11 @@
 
 Get Insights on the Pages visited.
 
+<img>
+
+![alt text](https://github.com/ankit8898/page-view-insights/blob/master/images/image.png "Logo Title Text 1")
+
+
 ### Demo Deployed App
 
 https://morning-forest-67046.herokuapp.com
