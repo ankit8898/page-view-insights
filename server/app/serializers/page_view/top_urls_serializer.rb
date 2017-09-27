@@ -7,7 +7,7 @@ class PageView::TopUrlsSerializer < ActiveModel::Serializer
   def attributes(_options = {}, _reload = false)
     {
       "#{object[:date_visited].strftime('%Y-%m-%d')}" => [
-        { url:  object[:url], visits: object[:visits] }
+        { url:  object.url.name, visits: object[:visits] }
       ]
     }
   end

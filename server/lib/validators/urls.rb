@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module Validator
-  module Url
+  module Urls
     #Utility class for url validation
 
     # Checks if the url is valid

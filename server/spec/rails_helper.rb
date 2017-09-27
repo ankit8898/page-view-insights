@@ -33,6 +33,8 @@ RSpec.configure do |config|
   # We want to keep the table clean
   config.after :context do
     PageView.truncate
+    Url.truncate
+    ReferrerUrl.truncate
   end
 
   # RSpec Rails can automatically mix in different behaviours to your tests

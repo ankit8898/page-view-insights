@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get :top_urls
       get :dates
       get :dates_range
+      get :top_referrers
     end
   end
 

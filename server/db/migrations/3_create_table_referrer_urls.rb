@@ -1,11 +1,9 @@
 Sequel.migration do
   change do
-    create_table(:page_views) do
+    create_table(:referrer_urls) do
       primary_key :id
-      Integer :url_id, null: false
-      Integer :referrer_url_id, null: false
+      String :name
       DateTime :created_at, default: Sequel::CURRENT_TIMESTAMP, index: true
-      String :hash
     end
   end
 end

@@ -48,24 +48,39 @@ class Seeder
 
 
   def seed
+    seed_urls
+    seed_referrer_urls
+    url_ids          = Url.pluck(:id)
+    referrer_url_ids = ReferrerUrl.pluck(:id)
     @days.times do |day|
       created_at = DateTime.now - day
-      batch = batch_of_rows(created_at)
-      Parallel.each(batch, in_processes: 3) do |row_hsh|
-        PageView.new(row_hsh).save
-      end
+      batch      = batch_of_rows(created_at, url_ids, referrer_url_ids)      
+      PageView.multi_insert(batch)
     end
+  end
 
+  def seed_urls
+    URLS.each do |url|
+      Url.create(name: url)
+    end
+  end
+
+  def seed_referrer_urls
+    REFERRER_URLS.each do |url|
+      ReferrerUrl.create(name: url)
+    end
   end
 
   # Creating a batch of number of rows / number of days worth of data
-  def batch_of_rows(created_at)
-    n_times = @num_of_rows/@days
+  def batch_of_rows(created_at, url_ids, referrer_ids)
+    n_times             = @num_of_rows/@days
     n_times.times.collect do
+      url_id          = url_ids.shuffle[rand(url_ids.count)]
+      referrer_url_id = referrer_ids.shuffle[rand(referrer_ids.count)]
       {
-        url:        URLS.shuffle[rand(5)],
-        referrer:   REFERRER_URLS.shuffle[rand(4)],
-        created_at: created_at
+        url_id:          url_id,
+        referrer_url_id: referrer_url_id,
+        created_at:      created_at
       }
     end
   end

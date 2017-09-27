@@ -16,12 +16,23 @@ class PageViewsController < ApplicationController
   # GET /dates
   def dates
     render json: PageView.dates,
-    each_serializer: PageView::DatesSerializer
+      each_serializer: PageView::DatesSerializer
   end
 
+  # GET /dates_range
   def dates_range
     render json: PageView.dates_ranges,
-    each_serializer: PageView::DatesRangeSerializer
+      each_serializer: PageView::DatesRangeSerializer
+  end
+
+  # GET /top_referrers
+  def top_referrers
+    if valid_params?(top_urls_params)
+      render json: PageView.top_referrers(top_referrer_params),
+        serializer: PageView::TopReferrerSerializer
+    else
+      render json: { message: invalid_params_message }
+    end
   end
 
   private
@@ -29,4 +40,5 @@ class PageViewsController < ApplicationController
   def top_urls_params
     params.permit(:date, :start, :end)
   end
+  alias :top_referrer_params :top_urls_params
 end

@@ -6,67 +6,19 @@ RSpec.describe PageView, type: :model do
 
     context 'when valid input' do
 
+      let(:url)          { Url.create(name: 'http://apple.com') }
+      let(:referrer_url) { ReferrerUrl.create(name: 'www.google.com') }
       let(:valid_input) do
-        { url: 'http://apple.com', referrer: 'www.google.com' }
+        { url_id: url.id, referrer_url_id: referrer_url.id }
       end
 
       before do
-        @instance = described_class.new(valid_input).save
+        @instance = described_class.create(valid_input)
       end
 
       it { expect(described_class.all).to have(1).items }
-      it { expect(@instance.url).to       eq('http://apple.com') }
-      it { expect(@instance.referrer).to  eq('www.google.com') }
-    end
-
-
-    context 'when invalid input' do
-
-      let(:invalid_input) do
-        { url: 'http://apple.com', referrer: 'abc.foo' }
-      end
-
-      before do
-        @instance = described_class.new(invalid_input).save
-      end
-
-      xit { expect(described_class.all).to have(0).items }
-
-    end
-  end
-
-  describe '.errors' do
-
-    context 'when invalid input' do
-
-      let(:invalid_input) do
-        { url: 'abc.com', referrer: 'abc.foo' }
-      end
-
-      before do
-        @instance = described_class.new(invalid_input)
-        @instance.valid?
-      end
-
-      it 'should have error messages' do
-        expect(@instance.errors).to eq({:url=>["is not a valid URL"]})
-      end
-    end
-
-    context 'when valid input' do
-
-      let(:invalid_input) do
-        { url: 'http://abc.com', referrer: 'abc.foo' }
-      end
-
-      before do
-        @instance = described_class.new(invalid_input)
-        @instance.valid?
-      end
-
-      it 'should have no error messages' do
-        expect(@instance.errors).to be_empty
-      end
+      it { expect(@instance.url.name).to           eq('http://apple.com') }
+      it { expect(@instance.referrer_url.name).to  eq('www.google.com') }
     end
   end
 

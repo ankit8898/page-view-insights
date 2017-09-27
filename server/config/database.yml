@@ -1,0 +1,20 @@
+development:
+  adapter: postgres
+  host: localhost
+  database: ankit
+  user:
+  password:
+
+test:
+  adapter: postgres
+  host: localhost
+  database: ankit_test
+  user:
+  password:
+
+production:
+  adapter: postgres
+  host: ec2-23-21-184-113.compute-1.amazonaws.com
+  database: d9bg591iqsvedl
+  user: skcsdfevafrvpm
+  password: 6d06782019de5e61c4170bbb95bd2ea4dc1c990803f4d7fea1493c63c1f11082

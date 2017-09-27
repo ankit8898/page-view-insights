@@ -1,12 +1,13 @@
 #Making a database connection
 
-if Rails.env.test?
-  database = 'ankit_test'
-else
-  database = 'ankit'
-end
+database_connection = Rails.application.config_for(:database)
 
-puts "Using database: #{database}"
-DB = Sequel.connect(adapter: 'postgres', host: 'localhost', database: database)
+DB = Sequel.connect(database_connection)
+
+DB.loggers << Logger.new($stdout) if Rails.env.development?
 
 Sequel.extension :migration
+Sequel::Model.plugin :touch
+
+# Global default
+Sequel::Model.strict_param_setting = false
