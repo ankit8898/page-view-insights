@@ -82,7 +82,7 @@ Seed data task will populate 1M rows of data. We use Sequel `multi_insert` API f
 
 You can run the application in development environment by 2 ways:
 
-1) Running Client and Server independently
+1) _Running Client and Server independently_
 
 ##### Client (React App)
 
@@ -106,7 +106,7 @@ This running mode is best for development as client will be repackaged every tim
 
 Only **catch** here is you will run into CORS issues due to port `:8080` trying to access over `:3000` (API). One easy solution to solve this is use the Chrome ADDON <a href='https://www.google.co.in/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwj1_rHU-cXWAhWMrI8KHbjpAR8QFgglMAA&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fallow-control-allow-origi%2Fnlfbmbojpeacfghkpbjhddihlkkiljbi%3Fhl%3Den&usg=AFQjCNHSUFqc6ylxfxfbWzmmFJ6L5QUvyg'>Allow-Control-Allow-Origin: *</a>.
 
-2) Bundle the Client App inside server
+2) _Bundle the Client App inside server_
 
 This is where `build_client_and_copy.rb` script is useful.
 
