@@ -59,7 +59,7 @@ RSpec.describe PageView, type: :model do
           { start: 4.days.ago.strftime('%Y-%m-%d'), end: Date.today.strftime('%Y-%m-%d') }
         end
 
-        it { expect(PageView.top_urls(params)).to have(5).items }
+        it { expect(PageView.top_urls(params)).to have(6).items }
 
       end
     end

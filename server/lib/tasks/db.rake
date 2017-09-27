@@ -18,7 +18,6 @@ namespace :db do
 
   desc "Seed database with dummy data"
   task seed: :environment do
-    #system('bin/rails runner "Seeder.new(1_000_000, 10).seed"')
     Seeder.new(1_000_000, 10).seed
   end
 
