@@ -1,9 +1,17 @@
+# Ankit's DB
+# development:
+#   adapter: postgres
+#   host: localhost
+#   database: ankit
+#   user:
+#   password:
+
 development:
   adapter: postgres
   host: localhost
-  database: ankit
-  user:
-  password:
+  database: <your_database_name>
+  user: <your_username (if present)>
+  password: <your_password (if present)>
 
 test:
   adapter: postgres

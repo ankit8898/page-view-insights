@@ -2,7 +2,7 @@
 
 Get Insights on the Pages visited.
 
-### Demo App
+### Demo Deployed App
 
 https://morning-forest-67046.herokuapp.com
 
@@ -16,9 +16,9 @@ https://morning-forest-67046.herokuapp.com
 └── server
 ```
 
-* **Client:** React Client Codebase
-* **Server:** Rails API
-* **build_client_and_copy.rb:** Script to build client and copy dist to server
+* **Client:** React JS Client Codebase
+* **Server:** Rails 5 API Codebase
+* **build_client_and_copy.rb:** Script to build client and copy `dist` to `server/public`
 
 ### Prerequisites
 
@@ -28,7 +28,7 @@ https://morning-forest-67046.herokuapp.com
 
 ##### Server (Rails App)
 
-* ruby (2.4.0)
+* ruby (`2.4.0`)
 * bundler (`gem install bundler`)
 * Postgres (`brew install postgresql`)
 
@@ -52,7 +52,7 @@ $ bundle install
 
 Now create a postgres database. You can use the <a href='https://www.postgresql.org/docs/9.0/static/sql-createdatabase.html'>CLI command</a> OR use a GUI like <a href='http://www.psequel.com/'>PSequel</a> .
 
-Once database is created update `database.yml` in server directory
+Once database is created update `database.yml` in <a href='https://github.com/ankit8898/page-view-insights/blob/master/server/config/database.yml'>server directory</a>
 
 ```yaml
 # server/config/database.yml
@@ -71,9 +71,11 @@ $ bundle exec rake db:migrate[3] #3 is the latest migration version
 $ bundle exec rake db:seed #to import some dummy data
 ```
 
+Seed data task will populate 1M rows of data. We use Sequel `multi_insert` API for same.
+
 ### Running
 
-You can run the application in development 2 ways:
+You can run the application in development environment by 2 ways:
 
 1) Running Client and Server independently
 
@@ -85,16 +87,19 @@ You can run the application in development 2 ways:
 
 ```
 
+Client Application can be accessed on <a href='localhost:8080'>localhost:8080</a>
+
 ##### Server (Rails App)
 
 ```bash
 $ cd server
 $ bundle exec rails s #this starts rails server over localhost:3000
 ```
+Server Application can be accessed on <a href='localhost:3000'>localhost:3000</a>
 
 This running mode is best for development as client will be repackaged every time a change is mode.
 
-Only **catch** here is you will run into CORS issues due to port 8080 trying to access over 3000 (API). One easy solution to solve this is use the Chrome ADDON <a href='https://www.google.co.in/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwj1_rHU-cXWAhWMrI8KHbjpAR8QFgglMAA&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fallow-control-allow-origi%2Fnlfbmbojpeacfghkpbjhddihlkkiljbi%3Fhl%3Den&usg=AFQjCNHSUFqc6ylxfxfbWzmmFJ6L5QUvyg'>Allow-Control-Allow-Origin: *</a>.
+Only **catch** here is you will run into CORS issues due to port `:8080` trying to access over `:3000` (API). One easy solution to solve this is use the Chrome ADDON <a href='https://www.google.co.in/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwj1_rHU-cXWAhWMrI8KHbjpAR8QFgglMAA&url=https%3A%2F%2Fchrome.google.com%2Fwebstore%2Fdetail%2Fallow-control-allow-origi%2Fnlfbmbojpeacfghkpbjhddihlkkiljbi%3Fhl%3Den&usg=AFQjCNHSUFqc6ylxfxfbWzmmFJ6L5QUvyg'>Allow-Control-Allow-Origin: *</a>.
 
 2) Bundle the Client App inside server
 
