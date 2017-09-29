@@ -20,9 +20,10 @@ test:
   user:
   password:
 
+#postgres://bickfarfuwrdrd:551e4ca2dce8792eb5f47d59c7dbac7a89774bfb65716705e864dda0660cec0b@ec2-184-73-174-10.compute-1.amazonaws.com:5432/ddir985a9055e3
 production:
   adapter: postgres
-  host: ec2-23-21-184-113.compute-1.amazonaws.com
-  database: d9bg591iqsvedl
-  user: skcsdfevafrvpm
-  password: 6d06782019de5e61c4170bbb95bd2ea4dc1c990803f4d7fea1493c63c1f11082
+  host: ec2-184-73-174-10.compute-1.amazonaws.com
+  database: ddir985a9055e3
+  user: bickfarfuwrdrd
+  password: 551e4ca2dce8792eb5f47d59c7dbac7a89774bfb65716705e864dda0660cec0b
