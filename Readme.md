@@ -127,6 +127,8 @@ Access via <a href='localhost:3000'>localhost:3000</a>. You should be seeing the
 
 ### Architecture
 
+We want to keep Client and Server apps standalone. This way client app is just dependent on the API's from server. We don't want to mix react into `*.html.erb` as it's leads to maintainibility issue and things get tightly coupled. In future if the backend needs to change the client is not impacted as it only needs to consume the API (which can be from any framework).
+
 ##### Client (React App)
 
 Client Application is a light weight react js application which has
@@ -142,20 +144,24 @@ Server Application is a Rails API based application. It is sliced down further b
 * **seeder** (`lib/seeder`): This class is responsible for seeding test data. Inside `server/lib/tasks/db.rake` a `seed` task is present which calls the `seeder`.
 * **controllers**: (`app/controllers`)
   * **concerns**: Includes a concern which is a params validator. We want to make sure that the date parameters which are being passed are valid. Incase they are not we get a error message.
-  * ***page_views_controller.rb***: Includes methods for ***top_urls*** and ***top_referrers*** only
+  * **page_views_controller.rb**: Includes methods for ***top_urls*** and ***top_referrers*** only
 * **models**: (`app/models`)
   * **concerns**: Includes the most important `queries` concern.
 
-  Queries concern is responsible for building all the queries which are used by top urls and top referrers.
+  <a href='https://github.com/ankit8898/page-view-insights/blob/master/server/app/models/concerns/queries.rb'>Queries concern</a> is responsible for building all the queries which are used by top urls and top referrers.
 
-  * **page_view.rb**: This is the interface exposed to access the queries. Queries module is extended in this class. Also, associations are defined to **url.rb** and **referrer_url.rb***.
+  * **page_view.rb**: This is the interface exposed to access the queries. This interface is called from controllers. Queries module is extended in this class. Also, associations are defined to **url.rb** and **referrer_url.rb**.
 
 * **serializers** (`app/serializers`): These acts as presenter layer. The JSON serialization takes place here in the required format. If we need to restructure the JSON it should be made here.
+
+
+When running in production mode the client app is packaged via `yarn build:prod` and the `dist` is copied over into `server/public`. This packaging is done by the utility script `build_client_and_copy.rb`.
 
 ### Testing
 
 ##### Server (Rails App)
 
+<a href='http://rspec.info/'>Rspec </a> is used for unit testing.
 
 ```
 $ cd server
